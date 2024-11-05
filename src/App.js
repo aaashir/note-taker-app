@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import Navigation from './components/Navigation'
+import Routes from './components/Routes'
 
-function App() {
+const App = () => {
+
+  const [activeView, setActiveView] = useState('all-notes')
+
+  const [notes, setNotes] = useState([])
+
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem('notes'))
+    if(storedNotes) {
+      setNotes(storedNotes)
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='home'>
+      <Navigation activeView={activeView} setActiveView={setActiveView}/>
+
+      <Routes activeView={activeView} setActiveView={setActiveView} notes={notes} setNotes={setNotes} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
