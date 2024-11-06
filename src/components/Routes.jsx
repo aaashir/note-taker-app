@@ -3,20 +3,20 @@ import AllNotes from './AllNotes'
 import AddNote from './AddNote'
 import DeletedNotes from './DeletedNotes'
 
-const Routes = ({ activeView, setActiveView, notes, setNotes }) => {
+const Routes = ({ activeView, setActiveView, notes, setNotes, deletedNotes, handleDelete, handleRestore }) => {
 
 	const showActiveScreen = () => {
 		switch (activeView) {
 			case 'all-notes':
-				return <AllNotes notes={notes}/>
+				return <AllNotes notes={notes} handleDelete={handleDelete}/>
 			case 'add-note':
 				return <AddNote notes={notes} setNotes={setNotes} setActiveView={setActiveView}/>
 			case 'deleted-notes':
-				return <DeletedNotes />
+				return <DeletedNotes deletedNotes={deletedNotes} handleRestore={handleRestore} />
 			case 'all-notes':
-				return <AllNotes />
+				return <AllNotes notes={notes}/>
 			default:
-				return <AllNotes />
+				return <AllNotes notes={notes}/>
 		}
 	}
 

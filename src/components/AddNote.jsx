@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
+import { v4 as uuidv4 } from 'uuid';
 
 const AddNote = ({ notes, setNotes, setActiveView }) => {
 
@@ -12,6 +13,7 @@ const AddNote = ({ notes, setNotes, setActiveView }) => {
 		setLoading(true)
 
 		const newNote = {
+			id: uuidv4(),
 			title,
 			desc,
 		}
