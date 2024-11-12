@@ -10,6 +10,8 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [deletedNotes, setDeletedNotes] = useState([])
 
+  const [selectedNote, setSelectedNote] = useState(null)
+
   const handleDelete = (note) => {
     const updatedNotes = notes.filter((n) => n.id !== note.id)
     const updatedDeletedNotes = [ ...deletedNotes, note ]
@@ -24,6 +26,14 @@ const App = () => {
     updateNotes('notes', updatedNotes, setNotes)
     setActiveView('all-notes')
 	}
+
+  const handleEditNote = (existingNote, updatedNote) => {
+    const editedNotes = notes.filter(n => n.id !== existingNote.id)
+    updateNotes('notes', editedNotes, setNotes)
+
+    const updatedNotes = [ ...editedNotes, updatedNote ]
+    updateNotes('notes', updatedNotes, setNotes)
+  }
 
   useEffect(() => {
     const storedNotes = JSON.parse(localStorage.getItem('notes'))
@@ -45,6 +55,9 @@ const App = () => {
         setDeletedNote={setDeletedNotes}
         handleDelete={handleDelete}
         handleRestore={handleRestore}
+        handleEditNote={handleEditNote}
+        selectedNote={selectedNote}
+        setSelectedNote={setSelectedNote}
       />
     </div>
   )
